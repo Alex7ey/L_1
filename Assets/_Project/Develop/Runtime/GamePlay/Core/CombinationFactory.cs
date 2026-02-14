@@ -6,8 +6,8 @@ namespace Assets._Project.Develop.Runtime.GamePlay.Core
 {
     public class CombinationFactory 
     {
-        private const int MinLength = 3;
-        private const int MaxLength = 10;
+        private const int MinLength = 2;
+        private const int MaxLength = 5;
 
         private IKeyRangeConfig _keyRangeConfig;
 

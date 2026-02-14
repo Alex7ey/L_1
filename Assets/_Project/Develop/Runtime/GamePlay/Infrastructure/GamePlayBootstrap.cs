@@ -2,7 +2,7 @@
 using System.Collections;
 using Assets._Project.Develop.Runtime.GamePlay.Core;
 using Assets._Project.Develop.Runtime.Infrastructure;
-using Assets._Project.Develop.Runtime.Infrastructure.DIContainer;
+using Assets._Project.Develop.Runtime.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagment;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagment;
 

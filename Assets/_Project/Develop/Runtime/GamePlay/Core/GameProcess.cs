@@ -48,10 +48,9 @@ namespace Assets._Project.Develop.Runtime.GamePlay.Core
                 _currentCharIndex++;
 
                 if (_currentCharIndex >= _combination.Value.Length)
-                {
                     _coroutinesPerformer.StartPerform(WinGameProcess());
-                    return;
-                }
+                
+                return;
             }
 
             _coroutinesPerformer.StartPerform(DefeatGameProcess());
@@ -59,12 +58,12 @@ namespace Assets._Project.Develop.Runtime.GamePlay.Core
 
         public bool IsCorrectChar(char inputChar)
         {
-            if (inputChar.ToString().ToUpper() == _combination.Value[_currentCharIndex].ToString().ToUpper())
+            if (inputChar.ToString().ToUpper() == _combination.Value[_currentCharIndex].ToString().ToUpper())          
                 return true;
-
+       
             return false;
         }
-      
+
         private IEnumerator WinGameProcess()
         {
             Debug.Log("Ты победил!");

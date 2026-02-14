@@ -13,7 +13,7 @@ namespace Assets._Project.Develop.Runtime.Utilities.ConfigsManagment
 
         private Dictionary<Type, string> _configsResourcesPaths = new()
         {
-            {typeof(CombinationConfig), "Configs/Combination" }
+            {typeof(CombinationConfig), "Configs/CombinationConfig" }
         };
 
         public ResourcesConfigsLoader(ResourcesAssetsLoader resources)
