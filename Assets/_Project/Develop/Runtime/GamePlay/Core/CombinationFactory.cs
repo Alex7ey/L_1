@@ -4,30 +4,25 @@ using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.GamePlay.Core
 {
-    public class CombinationFactory 
-    {
-        private const int MinLength = 2;
-        private const int MaxLength = 5;
-
-        private IKeyRangeConfig _keyRangeConfig;
-
+    public class CombinationFactory
+    {  
+        private CombinationConfig _config;
         private StringBuilder _stringBuilder = new();
 
-        public CombinationFactory(IKeyRangeConfig config)
-        {
-            _keyRangeConfig = config;
-        }
+        public CombinationFactory(CombinationConfig config) => _config = config;
+        
+        public ICombination CreateCombination(GameMode mode)
+        {         
+            string chars = mode == GameMode.Letter ? _config.LetterChars : _config.NumberChars;
 
-        public Combination CreateCombination()
-        {
-            int length = Random.Range(MinLength, MaxLength + 1);
+            for (int i = 0; i < _config.LengthCombination; i++)           
+                _stringBuilder.Append(chars[Random.Range(0, chars.Length)]);           
+          
+            string combinationString = _stringBuilder.ToString();
 
-            for (int i = 0; i < length; i++)
-            {
-                _stringBuilder.Append((char)Random.Range(_keyRangeConfig.KeyCodeFrom, _keyRangeConfig.KeyCodeTo));
-            }
+            _stringBuilder.Clear();
 
-            return new Combination(_stringBuilder.ToString());
+            return new Combination(combinationString);
         }
     }
 }

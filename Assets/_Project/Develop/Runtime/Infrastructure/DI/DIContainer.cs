@@ -14,6 +14,9 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.DI
 
         public void RegisterAsSingle<T>(Func<DIContainer, T> creator)
         {
+            if (IsAlreadyRegister<T>())
+                throw new InvalidOperationException($"{typeof(T)} already register");
+
             Registration registration = new(container => creator.Invoke(container));
             _container.Add(typeof(T), registration);
         }

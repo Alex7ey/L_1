@@ -11,25 +11,28 @@ using Assets._Project.Develop.Runtime.Utilities.SceneManagment;
 
 namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
 {
-    public class BootstrapMainMenu : Bootstrap
+    public class MainMenuBootstrap : Bootstrap
     {
         private DIContainer _container;
         private CombinationSelector _combinationSelector;
 
-        private IKeyRangeConfig _selectedKeyRangeConfig;
+        private GameMode _gameMode;
 
         private bool _isRunning;
 
         public override IEnumerator Initialize()
         {
-            ConfigsProviderService configsProviderService = _container.Resolve<ConfigsProviderService>();
+            _combinationSelector = _container.Resolve<CombinationSelector>();
 
-            yield return configsProviderService.LoadAsync();
-
-            _combinationSelector = new(_container.Resolve<ConfigsProviderService>());
+            yield return _container.Resolve<ConfigsProviderService>().LoadAsync();
         }
 
-        public override void ProcessRegistrations(DIContainer container, IInputSceneArgs inputSceneArgs) => _container = container;
+        public override void ProcessRegistrations(DIContainer container, IInputSceneArgs inputSceneArgs)
+        {
+            _container = container;
+
+            MainMenuContextRegistration.Process(_container);
+        }
       
         public override void Run() => _isRunning = true;
       
@@ -39,12 +42,12 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
             if (_isRunning == false)
                 return;
 
-            if (_combinationSelector.TryGetSelectedCombination(out IKeyRangeConfig config))
-                _selectedKeyRangeConfig = config;
-
-            if (_selectedKeyRangeConfig != null)
+            if (_combinationSelector.TryGetSelectedModeType(out GameMode mode))
             {
                 _isRunning = false;
+
+                _gameMode = mode;
+
                 _container.Resolve<ICoroutinesPerformer>().StartPerform(SwitchScene(_container));
             }
         }
@@ -60,7 +63,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
 
             loadingScreen.Hide();
 
-            yield return sceneSwitcher.ProcessSwitchTo(Scenes.Gameplay, new GameplayInputArgs(_selectedKeyRangeConfig));
+            yield return sceneSwitcher.ProcessSwitchTo(Scenes.Gameplay, new GameplayInputArgs(_gameMode));
         }
     }
 }

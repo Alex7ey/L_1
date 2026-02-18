@@ -1,30 +1,24 @@
-﻿using Assets._Project.Develop.Runtime.Utilities.ConfigsManagment;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Meta.Core
 {
     public class CombinationSelector
     {
-        private ConfigsProviderService _configsProviderService;
+        private GameMode _defaultMode = GameMode.Number;
 
-        public CombinationSelector(ConfigsProviderService configsProviderService)
+        public bool TryGetSelectedModeType(out GameMode selectedMode)
         {
-            _configsProviderService = configsProviderService;
-        }
-
-        public bool TryGetSelectedCombination(out IKeyRangeConfig combination)
-        {
-            combination = null;
+            selectedMode = _defaultMode;
 
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                combination = _configsProviderService.GetConfig<CombinationConfig>().Number;        
+                selectedMode = GameMode.Number;        
                 return true;
             }
 
             else if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                combination = _configsProviderService.GetConfig<CombinationConfig>().Letter;
+                selectedMode = GameMode.Letter;
                 return true;
             }
 

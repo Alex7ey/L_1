@@ -7,21 +7,8 @@ namespace Assets._Project.Develop.Runtime.Meta.Core
 
     public class CombinationConfig : ScriptableObject
     {
-        [field: SerializeField] public KeyRangeNumberConfig Number { get; set; }
-        [field: SerializeField] public KeyRangeLetterConfig Letter { get; set; }
-    }
-
-    [Serializable]
-    public class KeyRangeNumberConfig : IKeyRangeConfig
-    {
-        [field: SerializeField] public int KeyCodeFrom { get; set; }
-        [field: SerializeField] public int KeyCodeTo { get; set; }
-    }
-
-    [Serializable]
-    public class KeyRangeLetterConfig : IKeyRangeConfig
-    {
-        [field: SerializeField] public int KeyCodeFrom { get; set; }
-        [field: SerializeField] public int KeyCodeTo { get; set; }
+        [field: SerializeField] public string NumberChars { get; set; }
+        [field: SerializeField] public string LetterChars { get; set; }
+        [field: SerializeField] public int LengthCombination { get; set; }
     }
 }

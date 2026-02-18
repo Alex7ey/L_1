@@ -5,11 +5,11 @@ namespace Assets._Project.Develop.Runtime.GamePlay.Infrastructure
 {
     public class GameplayInputArgs : IInputSceneArgs
     {
-        public GameplayInputArgs(IKeyRangeConfig keyRangeConfig)
+        public GameplayInputArgs(GameMode mode)
         {
-            KeyRangeConfig = keyRangeConfig;
+            GameMode = mode;
         }
 
-        public IKeyRangeConfig KeyRangeConfig { get; private set; }
+        public GameMode GameMode { get; private set; }
     }
 }

@@ -12,9 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d601ef6f2260dda4bb154c06faf83b82, type: 3}
   m_Name: CombinationConfig
   m_EditorClassIdentifier: 
-  <Number>k__BackingField:
-    <KeyCodeFrom>k__BackingField: 48
-    <KeyCodeTo>k__BackingField: 57
-  <Letter>k__BackingField:
-    <KeyCodeFrom>k__BackingField: 65
-    <KeyCodeTo>k__BackingField: 91
+  <NumberChars>k__BackingField: 123456789
+  <LetterChars>k__BackingField: qwertyuiopasdfghjklzxcvbnm
+  <LengthCombination>k__BackingField: 4

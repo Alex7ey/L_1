@@ -30,9 +30,11 @@ namespace Assets._Project.Develop.Runtime.Utilities.SceneManagment
             Bootstrap sceneBootstrap = Object.FindObjectOfType<Bootstrap>();
 
             if (sceneBootstrap == null)   
-                throw new NullReferenceException(nameof(sceneBootstrap) + " not found");  
+                throw new NullReferenceException(nameof(sceneBootstrap) + " not found");
 
-            sceneBootstrap.ProcessRegistrations(_projectContainer, inputSceneArgs);
+            DIContainer sceneContainer = new(_projectContainer);
+
+            sceneBootstrap.ProcessRegistrations(sceneContainer, inputSceneArgs);
 
             yield return sceneBootstrap.Initialize();
 

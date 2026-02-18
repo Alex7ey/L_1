@@ -12,24 +12,29 @@ namespace Assets._Project.Develop.Runtime.GamePlay.Core
     {
         private bool _isRunning;
         private int _currentCharIndex;
-        private Combination _combination;
+        private ICombination _combination;
 
         private GameplayInputArgs _gameplayInputArgs;
         private ICoroutinesPerformer _coroutinesPerformer;
         private SceneSwitcherService _sceneSwitcherService;
+        private CombinationFactory _combinationFactory;
 
-        public GameProcess(GameplayInputArgs gameplayInputArgs, SceneSwitcherService sceneSwitcherService, ICoroutinesPerformer coroutinesPerformer)
+        public GameProcess(GameplayInputArgs gameplayInputArgs, 
+            SceneSwitcherService sceneSwitcherService, 
+            ICoroutinesPerformer coroutinesPerformer, 
+            CombinationFactory combinationFactory)
         {
             _gameplayInputArgs = gameplayInputArgs;
             _sceneSwitcherService = sceneSwitcherService;
             _coroutinesPerformer = coroutinesPerformer;
+            _combinationFactory = combinationFactory;
         }
 
         public void Initialize()
         {
             Keyboard.current.onTextInput += ProcessInput;
 
-            _combination = new CombinationFactory(_gameplayInputArgs.KeyRangeConfig).CreateCombination();
+            _combination = _combinationFactory.CreateCombination(_gameplayInputArgs.GameMode);
 
             _isRunning = true;
 
@@ -49,7 +54,7 @@ namespace Assets._Project.Develop.Runtime.GamePlay.Core
 
                 if (_currentCharIndex >= _combination.Value.Length)
                     _coroutinesPerformer.StartPerform(WinGameProcess());
-                
+
                 return;
             }
 
@@ -58,9 +63,9 @@ namespace Assets._Project.Develop.Runtime.GamePlay.Core
 
         public bool IsCorrectChar(char inputChar)
         {
-            if (inputChar.ToString().ToUpper() == _combination.Value[_currentCharIndex].ToString().ToUpper())          
+            if (inputChar.ToString().ToUpper() == _combination.Value[_currentCharIndex].ToString().ToUpper())
                 return true;
-       
+
             return false;
         }
 
